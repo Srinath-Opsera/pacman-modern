@@ -8,6 +8,16 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (id.includes("node_modules/three")) return "three";
+          return undefined;
+        },
+      },
+    },
+    minify: true,
+    chunkSizeWarningLimit: 600,
   },
   server: {
     port: 5173,
