@@ -15,7 +15,7 @@ if ! echo "$input" | grep -qE '\[(TASK|WO)-'; then
   exit 0
 fi
 
-PROJECT_DIR="${CURSOR_PROJECT_DIR:-.}"
+PROJECT_DIR="${CURSOR_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 MARKER="$PROJECT_DIR/.forge-commit-ready"
 
 if [ -f "$MARKER" ]; then
