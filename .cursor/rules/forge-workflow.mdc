@@ -1,0 +1,71 @@
+---
+description: Forge development standards and workflow rules for AI agents.
+alwaysApply: true
+---
+
+# Forge Development Standards
+
+Follow clean-code best practices for your project's language and framework.
+
+## Architecture
+
+- Follow a layered architecture: routes/controllers -> services -> repositories/data-access -> providers
+- Services receive dependencies through constructor injection — no hidden coupling
+- External integrations use the strategy/factory pattern — depend on interfaces, not vendor SDKs
+- Repositories contain zero business logic — only CRUD and queries
+- Route handlers are thin: parse request, call service, format response
+
+## File Discipline
+
+- Keep files focused on a single responsibility
+- Split files exceeding 500 lines — extract helpers, sub-services, or utility functions
+- Move shared types/interfaces to dedicated type files
+
+## Comments
+
+- Explain **why**, not **what** — the code already says what it does
+- Add comments for non-obvious business rules, workarounds, and trade-off decisions
+- No commented-out code — use git history
+- No TODOs without a ticket reference
+
+## Error Handling
+
+- Services throw descriptive errors; routes catch and return appropriate status codes
+- Never silently swallow errors without documenting why
+- Error messages should include what failed and how to fix it
+
+## Unit Testing
+
+- Every new or modified source file MUST have a corresponding unit test file
+- Tests must cover: happy path, error/edge cases, and boundary conditions
+- Mock external dependencies (databases, APIs, file systems, AI providers)
+- Never commit code without running tests and confirming they pass
+- Aim for meaningful coverage — test behavior, not implementation details
+
+## Branching & PR Workflow
+
+- **Never push directly to the default branch.** Always work on a feature branch.
+- Create a feature branch from the repo's default branch (check `set_project` or `list_linked_repos` for the correct branch name — do NOT assume `main`):
+  ```
+  git fetch origin
+  git checkout -b wo/<short-id> origin/<default_branch>
+  ```
+- Before naming your branch, inspect remote branches for existing conventions:
+  ```
+  git branch -r | head -20
+  ```
+  If the repo uses a pattern like `feature/*`, `dev/*`, or similar, adopt that pattern.
+- **Max 3 work orders per branch.** You may group up to 3 related WOs on one branch, but each WO must be a separate commit. After 3 WOs, create a PR and start a fresh branch.
+- Push the feature branch after each commit: `git push -u origin <branch-name>`
+- **Create a PR/MR** using `create_pull_request` — it returns a provider-specific `cli_command` (GitHub, GitLab, Azure DevOps, or Bitbucket). Run the command, then report `pr_url` and `pr_number` back via `update_work_order`.
+- Always pass `branch_name`, `repo_url`, and `repo_name` to `create_pull_request`.
+
+## Forge Process Flow
+
+- Read the work order + RTM traceability context before writing any code
+- Cross-reference RTM rows to identify which PRD sections and architecture components are relevant
+- Validate every acceptance criterion against your changes before committing
+- Write/update unit tests for all changed files
+- Run the full test suite and fix any failures
+- Commit and push each work order atomically — do NOT batch changes from multiple work orders
+- Never start a new work order with uncommitted changes from the previous one
