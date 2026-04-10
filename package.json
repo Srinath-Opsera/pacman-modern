@@ -1,0 +1,42 @@
+{
+  "name": "pacman-modern",
+  "version": "2.0.0",
+  "description": "Pac-Man game modernized with Three.js, TypeScript, and Vite",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint --fix . && prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "pacman",
+    "threejs",
+    "webgl",
+    "typescript",
+    "game"
+  ],
+  "license": "GPL-3.0",
+  "dependencies": {
+    "three": "^0.183.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^25.6.0",
+    "@types/three": "^0.183.1",
+    "@vitest/coverage-v8": "^4.1.4",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "jsdom": "^29.0.2",
+    "prettier": "^3.8.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.1",
+    "vite": "^8.0.8",
+    "vitest": "^4.1.4"
+  }
+}
