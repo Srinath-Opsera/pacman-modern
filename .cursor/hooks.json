@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/forge-pre-commit.sh",
+        "matcher": "git commit",
+        "timeout": 10
+      }
+    ]
+  }
+}
