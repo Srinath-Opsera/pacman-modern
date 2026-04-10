@@ -1,0 +1,9 @@
+dist/
+node_modules/
+js/
+css/
+sound/
+img/
+coverage/
+*.md
+LICENSE
